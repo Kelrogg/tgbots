@@ -24,21 +24,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: prepare environment
+      - name: pull tgcf image
         run: |
-          mkdir my-tgcf
-          cd my-tgcf
-          python3 -m venv .venv
-          source .venv/bin/activate
-
-      - name: install dependencies
-        run: |
-          pip install tgcf
+          docker pull aahnik/tgcf
       
-      - name: start app
-        run: |
+      - name: set passwd
           echo "PASSWORD=hocus pocus qwerty utopia" >> .env
 
-      - run:
-          ./deploy.sh
-
+      - name: launch docker container
+          nohup docker run -d -p 8501:8501 --env-file .env aahnik/tgcf
+        
