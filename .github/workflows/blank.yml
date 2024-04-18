@@ -24,16 +24,20 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
+          
+      - name: prepare environment
         run: |
           mkdir my-tgcf
           cd my-tgcf
           python3 -m venv .venv
           source .venv/bin/activate
+
+      - name: install dependencies
+        run: |
           pip install tgcf
-          tgcf --version
+      
+      - name: start app
+        run: |
           echo "PASSWORD=hocus pocus qwerty utopia" >> .env
           tgcf-web
 
