@@ -39,6 +39,6 @@ jobs:
         run: |
           echo "PASSWORD=hocus pocus qwerty utopia" >> .env
 
-      - uses:
+      - run:
           ./deploy.sh
 
